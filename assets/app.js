@@ -6,14 +6,16 @@ function renderButtons() {
 
     for (i = 0; i < topics.length; i++) {
         var a = $("<button>");
-        a.addClass("mx-2 btn btn-primary mt-1")
+        a.addClass("mx-2 btn btn-primary mt-1");
+        a.attr("data-name", topics[i]);
         a.append(topics[i]);
         $("#buttons").append(a);
     };
 };
 
 function renderGifs() {
-    var q = $("#topic-info").val();
+    var q = $(this).attr("data-name");
+    var limit = 10;
     var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=6oTFSZMolB64DOk1sLggtoKI8iTykLFY&q=" + q + "&limit=10&offset=0&rating=PG-13&lang=en";
 
     $(this).on("click", function () {
@@ -21,20 +23,28 @@ function renderGifs() {
             url: queryURL,
             method: "GET"
         }).then(function (response) {
-
-        })
-    }
+            for (i = 0; i = limit; i++) {
+                var imgURL = response.data[i].images.original.url;
+                var giphy = $("<img>").attr("src", imgURL);
+                $("#gifs").append(giphy);
+                console.log(imgURL);
+            };
+        });
+    });
+};
 
 $("#add-topic").on("click", function (event) {
 
-        event.preventDefault();
+    event.preventDefault();
 
-        var userChoice = $("#topic-input").val();
-        topics.push(userChoice);
-
-        renderButtons();
-    });
-
-
+    var userChoice = $("#topic-input").val();
+    topics.push(userChoice);
 
     renderButtons();
+});
+
+// Adding a click event listener to all elements with a class of "movie-btn"
+$(document).on("click", "#buttons", renderGifs);
+
+
+renderButtons();
