@@ -18,19 +18,21 @@ function renderGifs() {
     var limit = 10;
     var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=6oTFSZMolB64DOk1sLggtoKI8iTykLFY&q=" + q + "&limit=10&offset=0&rating=PG-13&lang=en";
 
-    $(this).on("click", function () {
-        $.ajax({
-            url: queryURL,
-            method: "GET"
-        }).then(function (response) {
-            for (i = 0; i = limit; i++) {
-                var imgURL = response.data[i].images.original.url;
-                var giphy = $("<img>").attr("src", imgURL);
-                $("#gifs").append(giphy);
-                console.log(imgURL);
-            };
-        });
+
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function (response) {
+        console.log(response);
+        console.log(response.data[0].url);
+
+        for (i = 0; i < limit; i++) {
+            var imgURL = response.data[i].images.original.url;
+            var giphy = $("<img>").attr("src", imgURL);
+            $("#gifs").append(giphy);
+        };
     });
+
 };
 
 $("#add-topic").on("click", function (event) {
@@ -43,8 +45,8 @@ $("#add-topic").on("click", function (event) {
     renderButtons();
 });
 
-// Adding a click event listener to all elements with a class of "movie-btn"
-$(document).on("click", "#buttons", renderGifs);
+// Adding a click event listener to all elements with an class "animal-btn"
+$(document).on("click", ".animal-btn", renderGifs);
 
 
 renderButtons();
