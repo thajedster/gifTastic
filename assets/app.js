@@ -6,7 +6,7 @@ function renderButtons() {
 
     for (i = 0; i < topics.length; i++) {
         var a = $("<button>");
-        a.addClass("mx-2 btn btn-primary mt-1");
+        a.addClass("mx-2 btn btn-primary mt-1 animal-btn");
         a.attr("data-name", topics[i]);
         a.append(topics[i]);
         $("#buttons").append(a);
@@ -15,6 +15,7 @@ function renderButtons() {
 
 function renderGifs() {
     var q = $(this).attr("data-name");
+    console.log(q);
     var limit = 10;
     var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=6oTFSZMolB64DOk1sLggtoKI8iTykLFY&q=" + q + "&limit=10&offset=0&rating=PG-13&lang=en";
 
