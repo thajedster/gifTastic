@@ -29,7 +29,7 @@ function renderGifs() {
 
         for (i = 0; i < limit; i++) {
             var imgURL = response.data[i].images.original.url;
-            var giphy = $("<img>").attr("src", imgURL);
+            var giphy = $("<img style='width:250px; height:250px; margin-left:5px;margin-right:5px;margin-top:5px;margin-bottom:5px;'>").attr("src", imgURL);
             $("#gifs").append(giphy);
         };
     });
